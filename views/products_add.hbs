@@ -1,7 +1,7 @@
 <div class="big-container product-manage-wrapper flexed-item">
   {{!-- <form action="/prod-add" method="post" class="add-product-form" enctype="multiparty/form-data"> --}}
   
-  <form action="/db/prod-add" method="post" class="add-product-form" enctype="multiparty/form-data">
+  <form action="/db/prod-add" method="post" class="add-product-form" enctype="multipartform-data">
     {{#if msg}}
     <p class="msg {{msg.statu}}">{{msg.txt}}</p>
     {{/if}}
@@ -31,8 +31,10 @@
       <input id="sneaker-price" type="number" class="sneaker-price input" min="1" value="123" name="price">
     </div>
     <div class="form-item-wrapper flexed-item">
+    
       <label for="sneaker-img" class="label-price label">Image</label>
-      <input id="sneaker-img" type="file" class="sneaker-price input" name="img">
+      <input id="sneaker-img" type="file" class="sneaker-price input" name="images">
+    
     </div>
     <div class="form-item-wrapper flexed-item">
       <label for="category" class="label-main-cat label">Main category</label>

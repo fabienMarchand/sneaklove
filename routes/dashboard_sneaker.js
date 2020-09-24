@@ -12,7 +12,7 @@ router.get("/prod-add", async (req, res)=> {
     res.render("products_add.hbs", {tags});
   });
   
-  router.post("/prod-add",  uploader.single("img") ,async(req, res) => {
+  router.post("/prod-add",  uploader.single("images") ,async(req, res) => {
     try {
       const newSneaker = req.body;
       console.log("<<<<<<<<<<<<",newSneaker, ">>>>>>>>>>>>>>>>>>>>>");

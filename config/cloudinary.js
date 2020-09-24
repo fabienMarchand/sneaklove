@@ -15,10 +15,8 @@ const storage = new CloudinaryStorage({
     folder: "sneaklove",
     // allowedFormats: ["jpg", "png"], // Specify the allowed formats for your uploaded files
     format: async (req, file) => {
-      // Format your file into jpeg/png etc...
-      // async code using `req` and `file`
-      // ...
-      return "jpeg";
+
+      return "jpg";
     },
     // format: "jpeg", // supports promises as well
     // public_id: (req, file) => "computed-filename-using-request",
