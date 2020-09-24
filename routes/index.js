@@ -1,14 +1,12 @@
 const express = require("express");
 const router = express.Router();
 
-
-
-
 const Sneaker = require("../models/Sneaker");
 const Tag = require("../models/Tag");
 const User = require("../models/User");
 
- console.log(`\n\n
+
+console.log(`\n\n
 -----------------------------
 -----------------------------
      wax on / wax off !
@@ -16,7 +14,52 @@ const User = require("../models/User");
 -----------------------------\n\n`
 );
 
+
+router.get("/prod-add", async (req, res)=> {
+  const tags = await Tag.find({});
+  console.log(tags);
+  res.render("products_add.hbs", {tags});
+});
+
+
+router.post("/prod-add", async(req, res) => {
+  try {
+    const newSneaker = req.body;
+    const createdSneaker = await Sneaker.create(newSneaker);
+    res.redirect("/prod-manage");
+  } catch (error) {
+    next(error); 
+  }
+});
+
+router.post("/prod-add-cat", async (req, res, next)=> {
+  try {
+    const newTag = req.body;
+    const createdTag = await Tag.create(newTag);
+     res.redirect("/prod-add");
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.get("/prod-manage", async (req, res)=> {
+  const sneakers = await Sneaker.find({});
+  console.log(sneakers);
+  res.render("products_manage.hbs", {sneakers});
+});
+
+router.get("/product-delete/:id", async (req, res, next) => {
+  try {
+    const sneakerId = req.params.id;
+    await Sneaker.findByIdAndDelete(sneakerId);
+    res.redirect("/prod_manage");
+  } catch (error) {
+    next(error);
+  }
+});
+
 router.get("/", (req, res) => {
+<<<<<<< HEAD
  // res.send("foo");
  res.render("index.hbs");
 });
@@ -75,6 +118,9 @@ router.get("/prod-manage", async (req, res)=> {
   const sneakers = await Sneaker.find({});
   console.log(sneakers);
   res.render("products_manage.hbs", {sneakers});
+=======
+  res.render("index.hbs");
+>>>>>>> 81dd557f51185690577f41fb78008151792ba9db
 });
 
 router.get("/sneakers/:cat", (req, res) => {
@@ -82,7 +128,11 @@ router.get("/sneakers/:cat", (req, res) => {
 });
 
 router.get("/one-product/:id", (req, res) => {
+<<<<<<< HEAD
   res.send("one_product.hbs");
+=======
+  res.render("one_product.hbs");
+>>>>>>> 81dd557f51185690577f41fb78008151792ba9db
 });
 
 router.get("/signup", (req, res) => {
@@ -108,3 +158,4 @@ router.get("/signin", (req, res) => {
 
 
 module.exports = router;
+
