@@ -52,7 +52,7 @@ router.get("/product-delete/:id", async (req, res, next) => {
   try {
     const sneakerId = req.params.id;
     await Sneaker.findByIdAndDelete(sneakerId);
-    res.redirect("/prod_manage");
+    res.redirect("/prod-manage");
   } catch (error) {
     next(error);
   }
