@@ -59,7 +59,68 @@ router.get("/product-delete/:id", async (req, res, next) => {
 });
 
 router.get("/", (req, res) => {
+<<<<<<< HEAD
+ // res.send("foo");
+ res.render("index.hbs");
+});
+
+// router.post("/", async (req, res, next) => {
+//   //   console.log(req.body);
+//   try {
+//     const newUser = req.body;
+//     const createdAlbum = await Album.create(newAlbum);
+//     res.redirect("/albums");
+//   } catch (error) {
+//     next(error);
+//   }
+// });
+
+router.get("/prod-add", async (req, res)=> {
+
+  const tags = await Tag.find({});
+  console.log(tags);
+  res.render("products_add.hbs", {tags});
+});
+
+router.post("/prod-add", async (req, res, next)=> {
+  try {
+    const newSneaker = req.body.console;
+
+    console.log("<<<<<<<<<<<<<<<<<");
+    console.log(newSneaker);
+    console.log("<<<<<<<<<<<<<<<<< \r\n");
+    const createdSneaker = await Sneaker.create(newSneaker);
+     res.redirect("/prod-manage");
+  } catch (error) {
+    next(error);
+  }  
+});
+
+
+router.post("/prod-add-cat", async (req, res, next)=> {
+  try {
+    const newTag = req.body;
+
+    console.log("<<<<<<<<<<<<<<<<<");
+    console.log(newTag);
+    console.log("<<<<<<<<<<<<<<<<< \r\n");
+    const createdTag = await Tag.create(newTag);
+     res.redirect("/prod-add");
+  } catch (error) {
+    next(error);
+  }  
+});
+
+
+
+router.get("/prod-manage", async (req, res)=> {
+
+  const sneakers = await Sneaker.find({});
+  console.log(sneakers);
+  res.render("products_manage.hbs", {sneakers});
+=======
   res.render("index.hbs");
+>>>>>>> 81dd557f51185690577f41fb78008151792ba9db
 });
 
 router.get("/sneakers/:cat", (req, res) => {
@@ -67,7 +128,11 @@ router.get("/sneakers/:cat", (req, res) => {
 });
 
 router.get("/one-product/:id", (req, res) => {
+<<<<<<< HEAD
+  res.send("one_product.hbs");
+=======
   res.render("one_product.hbs");
+>>>>>>> 81dd557f51185690577f41fb78008151792ba9db
 });
 
 router.get("/signup", (req, res) => {
@@ -77,6 +142,19 @@ router.get("/signup", (req, res) => {
 router.get("/signin", (req, res) => {
   res.render("signin.hbs");
 });
+
+// router.get("/product-delete/:id", async (req, res) => {
+// conseol.log
+
+//   try {
+//     const sneakerId = req.params.id;
+//     await Sneaker.findByIdAndDelete(sneakerId);
+//     res.redirect("products_manage.hbs");
+//   } catch (error) {
+//     next(error);
+//   }
+// });
+
 
 
 module.exports = router;

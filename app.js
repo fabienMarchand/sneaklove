@@ -1,7 +1,7 @@
-// throw new Error("wax on, wax off");
+//throw new Error("wax on, wax off");
 
 require("dotenv").config();
-require("./config/mongodb"); // database initial setup
+require("./config/mongo"); // database initial setup
 require("./helpers/hbs"); // utils for hbs templates
 
 // base dependencies
@@ -20,8 +20,8 @@ const logger = require("morgan");
 app.use(logger("dev"));
 
 // initial config
-app.set("view engine", "hbs");
 app.set("views", __dirname + "/views");
+app.set("view engine", "hbs");
 app.use(express.static("public"));
 hbs.registerPartials(__dirname + "/views/partials");
 app.use(express.urlencoded({ extended: false }));
