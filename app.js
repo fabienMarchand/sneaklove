@@ -1,7 +1,7 @@
-throw new Error("wax on, wax off");
+//throw new Error("wax on, wax off");
 
 require("dotenv").config();
-require("./config/mongodb"); // database initial setup
+require("./config/mongo"); // database initial setup
 require("./helpers/hbs"); // utils for hbs templates
 
 // base dependencies
@@ -9,7 +9,7 @@ const express = require("express");
 const app = express();
 const cookieParser = require("cookie-parser");
 const flash = require("connect-flash");
-const hbo = require("hbs");
+const hbs = require("hbs");
 const mongoose = require("mongoose");
 const session = require("express-session");
 const MongoStore = require("connect-mongo")(session);
@@ -20,8 +20,8 @@ const logger = require("morgan");
 app.use(logger("dev"));
 
 // initial config
+app.set("views", __dirname + "/views");
 app.set("view engine", "hbs");
-app.set("views", __dirname + "/view");
 app.use(express.static("public"));
 hbs.registerPartials(__dirname + "/views/partials");
 app.use(express.urlencoded({ extended: false }));
