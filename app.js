@@ -1,7 +1,7 @@
 //throw new Error("wax on, wax off");
 
 require("dotenv").config();
-require("./config/mongo"); // database initial setup
+require("./config/mongodb"); // database initial setup
 require("./helpers/hbs"); // utils for hbs templates
 
 // base dependencies
