@@ -11,11 +11,13 @@
   <div>${{this.price}}</div>
 </td>
 <td class="table-division">
-  <a href="/product-edit/{{this._id}}" data-id-sneaker="{{this._id}}" class="fa fa-edit table-icon"></a>
+  <a href="/db/product-edit/{{this._id}}" data-id-sneaker="{{this._id}}">
+  <i class="fa fa-edit table-icon"></i>
+  </a>
 </td>
 <td class="table-division">
   
-  <a href="/product-delete/{{this._id}}"  data-id-sneaker="{{this._id}}"  aria-hidden="true">
+  <a href="/db/product-delete/{{this._id}}"  data-id-sneaker="{{this._id}}"  aria-hidden="true">
   <i class="fa fa-trash table-icon"></i>
   </a>
 </td>
