@@ -100,7 +100,10 @@ router.get("/prod-add", async (req, res)=> {
       const sneakerDocuments = await Sneaker.findById(req.params.id);
       const tagDocuments = await Tag.find();
 
-        console.log("sneakerDocuments:", sneakerDocuments);
+      const toto = await (await Sneaker.findById(req.params.id)).populate("Tag");
+     
+
+        console.log("toto:", toto);
         console.log("tagDocuments:", tagDocuments);
 
       // console.log(labelDocuments);

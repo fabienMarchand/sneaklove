@@ -4,7 +4,8 @@ const Schema = mongoose.Schema;
 const userSchema = new Schema({
     name: String,
     lastname: String,
-    email: String,
+    email: { type: String, unique: true },
+    role: { type: String, enum: ["admin", "user"], default: "user" },
     password: String
   });
   

@@ -47,6 +47,27 @@ app.locals.site_url = process.env.SITE_URL;
 
 app.use(flash());
 
+app.use(function (req, res, next) {
+  res.locals.error_message = req.flash("error");
+  res.locals.success_message = req.flash("success");
+  next();
+});
+
+app.use(function (req, res, next) {
+  if (req.session.currentUser) {
+    res.locals.isLoggedIn = true;
+    res.locals.isAdmin = req.session.currentUser.role === "admin";
+    res.locals.username = req.session.currentUser.username;
+  } else {
+    res.locals.isLoggedIn = false;
+    res.locals.username = null;
+    res.locals.isAdmin = false;
+  }
+  next();
+});
+
+
+
 // CUSTOM MIDDLEWARES
 
 if (dev_mode === true) {
@@ -60,5 +81,6 @@ app.use(require("./middlewares/exposeFlashMessage"));
 // routers
 app.use("/", require("./routes/index"));
 app.use("/db", require("./routes/dashboard_sneaker"));
+app.use("/auth", require("./routes/auth"));
 
 module.exports = app;
