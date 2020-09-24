@@ -21,8 +21,17 @@ router.get("/", (req, res) => {
 });
 
 
-router.get("/sneakers/:cat", (req, res) => {
-  res.render("products.hbs");
+router.get("/sneakers/:cat", async (req, res) => {
+  let sneakers;
+  let tags;
+  let sneakersMen;
+  if(req.params.cat === "collection"){
+    sneakers= await Sneaker.find({});
+  } else {
+    sneakers= await Sneaker.find({ "category": { "$eq": req.params.cat } });
+  }
+    tags = await Tag.find({});
+  res.render("products.hbs", {sneakers, tags} );
 });
 
 router.get("/one-product/:id", (req, res) => {

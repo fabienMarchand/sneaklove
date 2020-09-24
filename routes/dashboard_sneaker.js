@@ -4,6 +4,7 @@ const router = new express.Router(); // create an app sub-module (router)
 const Sneaker = require("../models/Sneaker");
 const Tag = require("../models/Tag");
 const User = require("../models/User");
+const uploader = require("../config/cloudinary");
 
 
 router.get("/prod-add", async (req, res)=> {
@@ -11,9 +12,18 @@ router.get("/prod-add", async (req, res)=> {
     res.render("products_add.hbs", {tags});
   });
   
-  router.post("/prod-add", async(req, res) => {
+  router.post("/prod-add",  uploader.single("img") ,async(req, res) => {
     try {
       const newSneaker = req.body;
+      console.log("<<<<<<<<<<<<",newSneaker, ">>>>>>>>>>>>>>>>>>>>>");
+      console.log("<<<<<<<<<<<<",req.file, ">>>>>>>>>>>>>>>>>>>>>");
+
+      const newLabel = req.body;
+      if (req.file) {
+        newLabel.img = req.file.path;
+      }
+
+
       const createdSneaker = await Sneaker.create(newSneaker);
       res.redirect("/db/prod-manage");
     } catch (error) {
@@ -33,7 +43,6 @@ router.get("/prod-add", async (req, res)=> {
   
   router.get("/prod-manage", async (req, res)=> {
     const sneakers = await Sneaker.find({});
-    console.log(sneakers);
     res.render("products_manage.hbs", {sneakers});
   });
   
@@ -54,7 +63,6 @@ router.get("/prod-add", async (req, res)=> {
   
   router.get("/prod-add", async (req, res)=> {
     const tags = await Tag.find({});
-    console.log(tags);
     res.render("products_add.hbs", {tags});
   });
   
@@ -79,7 +87,6 @@ router.get("/prod-add", async (req, res)=> {
   });
   router.get("/prod-manage", async (req, res)=> {
     const sneakers = await Sneaker.find({});
-    console.log(sneakers);
     res.render("products_manage.hbs", {sneakers});
   });
   
@@ -101,10 +108,6 @@ router.get("/prod-add", async (req, res)=> {
       const tagDocuments = await Tag.find();
 
       const toto = await (await Sneaker.findById(req.params.id)).populate("Tag");
-     
-
-        console.log("toto:", toto);
-        console.log("tagDocuments:", tagDocuments);
 
       // console.log(labelDocuments);
       res.render("product_edit.hbs", {
