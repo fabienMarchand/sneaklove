@@ -59,7 +59,6 @@ router.get("/product-delete/:id", async (req, res, next) => {
 });
 
 router.get("/", (req, res) => {
-<<<<<<< HEAD
  // res.send("foo");
  res.render("index.hbs");
 });
@@ -118,9 +117,6 @@ router.get("/prod-manage", async (req, res)=> {
   const sneakers = await Sneaker.find({});
   console.log(sneakers);
   res.render("products_manage.hbs", {sneakers});
-=======
-  res.render("index.hbs");
->>>>>>> 81dd557f51185690577f41fb78008151792ba9db
 });
 
 router.get("/sneakers/:cat", (req, res) => {
@@ -128,11 +124,7 @@ router.get("/sneakers/:cat", (req, res) => {
 });
 
 router.get("/one-product/:id", (req, res) => {
-<<<<<<< HEAD
-  res.send("one_product.hbs");
-=======
   res.render("one_product.hbs");
->>>>>>> 81dd557f51185690577f41fb78008151792ba9db
 });
 
 router.get("/signup", (req, res) => {
