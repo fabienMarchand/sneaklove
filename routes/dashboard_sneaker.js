@@ -8,14 +8,11 @@ const User = require("../models/User");
 
 router.get("/prod-add", async (req, res)=> {
     const tags = await Tag.find({});
-    console.log(tags, "<<<<< prod-add >>>>>>>>>");
     res.render("products_add.hbs", {tags});
   });
   
-  
   router.post("/prod-add", async(req, res) => {
     try {
-      console.log("<<<<< post:prod-add >>>>>>>>>");
       const newSneaker = req.body;
       const createdSneaker = await Sneaker.create(newSneaker);
       res.redirect("/db/prod-manage");
@@ -27,7 +24,6 @@ router.get("/prod-add", async (req, res)=> {
   router.post("/prod-add-cat", async (req, res, next)=> {
     try {
       const newTag = req.body;
-      console.log("<<<<< prod-add-cat >>>>>>>>>");
       const createdTag = await Tag.create(newTag);
        res.redirect("/db/prod-add");
     } catch (error) {
@@ -57,20 +53,14 @@ router.get("/prod-add", async (req, res)=> {
   });
   
   router.get("/prod-add", async (req, res)=> {
-    console.log("<<<< prod-add- >>>>>>");
     const tags = await Tag.find({});
     console.log(tags);
     res.render("products_add.hbs", {tags});
   });
   
   router.post("/prod-add", async (req, res, next)=> {
-    console.log("<<<< prod-add-POST >>>>>>");
     try {
       const newSneaker = req.body.console;
-  
-      console.log("<<<<<<<<<<<<<<<<<");
-      console.log(newSneaker);
-      console.log("<<<<<<<<<<<<<<<<< \r\n");
       const createdSneaker = await Sneaker.create(newSneaker);
        res.redirect("/db/prod-manage");
     } catch (error) {
@@ -78,28 +68,50 @@ router.get("/prod-add", async (req, res)=> {
     }  
   });
   
-  
   router.post("/prod-add-cat", async (req, res, next)=> {
-    console.log("<<<< prod-add-cat >>>>>>");
     try {
       const newTag = req.body;
-  
-      console.log("<<<<<<<<<<<<<<<<<");
-      console.log(newTag);
-      console.log("<<<<<<<<<<<<<<<<< \r\n");
       const createdTag = await Tag.create(newTag);
        res.redirect("/db/prod-add");
     } catch (error) {
       next(error);
     }  
   });
-  
   router.get("/prod-manage", async (req, res)=> {
-  console.log("<<<< prod-manage >>>>>>");
     const sneakers = await Sneaker.find({});
     console.log(sneakers);
     res.render("products_manage.hbs", {sneakers});
   });
   
+
+  router.post("/product-edit/:id", async (req, res, next) => {
+    try {
+      const sneakerId = req.params.id;
+      const newSneakerValues = req.body;
+      await Sneaker.findByIdAndUpdate(sneakerId, newSneakerValues);
+      res.redirect("/db/prod-manage");
+    } catch (error) {
+      next(error);
+    }
+  });
+
+  router.get("/product-edit/:id", async (req, res) => {
+    try {
+      const sneakerDocuments = await Sneaker.findById(req.params.id);
+      const tagDocuments = await Tag.find();
+
+        console.log("sneakerDocuments:", sneakerDocuments);
+        console.log("tagDocuments:", tagDocuments);
+
+      // console.log(labelDocuments);
+      res.render("product_edit.hbs", {
+        sneaker: sneakerDocuments,
+        tags: tagDocuments,
+      });
+    } catch (error) {
+      next(error);
+    }
+  });
+
 
 module.exports = router;
