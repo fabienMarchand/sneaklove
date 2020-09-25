@@ -1,11 +1,9 @@
 const express = require("express"); // import express in this module
 const router = new express.Router(); // create an app sub-module (router)
-
 const Sneaker = require("../models/Sneaker");
 const Tag = require("../models/Tag");
 const User = require("../models/User");
 const uploader = require("../config/cloudinary");
-
 
 router.get("/prod-add", async (req, res)=> {
     const tags = await Tag.find({});
@@ -15,15 +13,10 @@ router.get("/prod-add", async (req, res)=> {
   router.post("/prod-add",  uploader.single("images") ,async(req, res) => {
     try {
       const newSneaker = req.body;
-      console.log("<<<<<<<<<<<<",newSneaker, ">>>>>>>>>>>>>>>>>>>>>");
-      console.log("<<<<<<<<<<<<",req.file, ">>>>>>>>>>>>>>>>>>>>>");
-
       const newLabel = req.body;
       if (req.file) {
         newLabel.images = req.file.path;
       }
-
-
       const createdSneaker = await Sneaker.create(newSneaker);
       res.redirect("/db/prod-manage");
     } catch (error) {
@@ -96,6 +89,7 @@ router.get("/prod-add", async (req, res)=> {
       const sneakerId = req.params.id;
       const newSneakerValues = req.body;
       await Sneaker.findByIdAndUpdate(sneakerId, newSneakerValues);
+      console.log("toto");
       res.redirect("/db/prod-manage");
     } catch (error) {
       next(error);
@@ -104,12 +98,11 @@ router.get("/prod-add", async (req, res)=> {
 
   router.get("/product-edit/:id", async (req, res) => {
     try {
-      const sneakerDocuments = await Sneaker.findById(req.params.id);
+      const sneakerDocuments = await Sneaker.findById(req.params.id).populate("Tag");
       const tagDocuments = await Tag.find();
-
-    //  const toto = await (await Sneaker.findById(req.params.id)).populate("Tag");
-
-      // console.log(labelDocuments);
+      //const sneakerDocuments = await Sneaker.findById(req.params.id).populate("id_tags");
+    
+      
       res.render("product_edit.hbs", {
         sneaker: sneakerDocuments,
         tags: tagDocuments,
@@ -118,6 +111,5 @@ router.get("/prod-add", async (req, res)=> {
       next(error);
     }
   });
-
 
 module.exports = router;
