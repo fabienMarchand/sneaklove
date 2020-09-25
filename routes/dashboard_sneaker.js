@@ -20,7 +20,7 @@ router.get("/prod-add", async (req, res)=> {
 
       const newLabel = req.body;
       if (req.file) {
-        newLabel.img = req.file.path;
+        newLabel.images = req.file.path;
       }
 
 
