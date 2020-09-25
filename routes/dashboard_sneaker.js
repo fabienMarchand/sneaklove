@@ -107,7 +107,7 @@ router.get("/prod-add", async (req, res)=> {
       const sneakerDocuments = await Sneaker.findById(req.params.id);
       const tagDocuments = await Tag.find();
 
-      const toto = await (await Sneaker.findById(req.params.id)).populate("Tag");
+    //  const toto = await (await Sneaker.findById(req.params.id)).populate("Tag");
 
       // console.log(labelDocuments);
       res.render("product_edit.hbs", {
