@@ -29,7 +29,7 @@ function editListeners() {
                 oneSneaker.className = "product-item-wrapper";
                 oneSneaker.innerHTML += `
             <div class="product-img">
-                <img src="${shoe.image}" alt="${shoe.name} : what a nice pair of kicks">
+                <img src="${shoe.images}" alt="${shoe.name} : what a nice pair of kicks">
             </div>
             <p class="product-name">${shoe.name}</p>
             <p class="product-cat">${shoe.category}</p>
