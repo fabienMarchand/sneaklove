@@ -64,3 +64,18 @@ hbs.registerHelper("compare", function(lvalue, rvalue, options) {
     return options.inverse(this);
   }
 });
+
+hbs.registerHelper("isSameId", function (value1, value2, options) {
+  
+  if(value2) {
+    if (value1.toString() === value2.toString()) {
+      console.log("value1:", value1 );
+  console.log("value2:", value2);
+      return options.fn(this);
+    } else {
+      return options.inverse(this);
+    }
+  }else {
+    return options.inverse(this);
+  }
+});

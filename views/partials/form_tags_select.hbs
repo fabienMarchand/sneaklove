@@ -1,6 +1,11 @@
 <select name="id_tags" id="tags" class="select" >
     <option value="-1" disabled selected>Choose a category</option>
     {{#each tags}}
-    <option value="{{this._id}}">{{this.label}}</option>
+     {{#isSameId  this._id ../sneaker.id_tags }}
+        <option selected value="{{this._id}}">{{this.label}}</option>
+       
+    {{else}}
+        <option value="{{this._id}}">{{this.label}}</option>
+        {{/isSameId}}
     {{/each}}
 </select>
