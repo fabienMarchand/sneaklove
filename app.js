@@ -32,7 +32,6 @@ app.use(cookieParser());
 app.use(
   session({
     secret: process.env.SESSION_SECRET,
-    cookie: { maxAge: 24 * 60 * 60 }, // in millisec
     store: new MongoStore({
       mongooseConnection: mongoose.connection, // you can store session infos in mongodb :)
       ttl: 24 * 60 * 60, // 1 day
