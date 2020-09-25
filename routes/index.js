@@ -34,9 +34,12 @@ router.get("/sneakers/:cat", async (req, res) => {
   res.render("products.hbs", {sneakers, tags} );
 });
 
-router.get("/one-product/:id", (req, res) => {
-  res.render("one_product.hbs");
+router.get("/one-product/:id", async (req, res) => {
+  const sneakerSolo = await Sneaker.findById(req.params.id);
+  res.render("one_product.hbs", { sneaker : sneakerSolo});
+
 });
+
 
 
 module.exports = router;
